@@ -27,6 +27,21 @@
         return $respuesta;
     }
 
+    function findAllActivos($tabla){ 
+        $respuesta = array();
+        $bd = conexion();      
+        // Prepara SELECT
+        $sql = "SELECT * FROM " . $tabla . " WHERE activo = true";
+        $resultado = $bd -> query($sql);   
+        while ($row = $resultado -> fetch_assoc()) { 
+            array_push($respuesta, $row); 
+        }
+        if($bd->connect_errno) { 
+            return $bd->error;  
+        }   
+        return $respuesta;
+    }
+
 
 
 
@@ -128,6 +143,30 @@
             return $bd->error;  
         }   
         return 'Registro Actualizado Correctamente';
+    }
+
+    function findTipoReclamo($dato, $tabla){       
+        $respuesta = array();
+        $bd = conexion();      
+        // Prepara SELECT
+        $sql = "SELECT * FROM " . $tabla . " WHERE id_tiporeclamo = " . $dato;
+        $resultado = $bd -> query($sql);         
+        if($bd->connect_errno) { 
+            return $bd->error;  
+        }   
+        return $resultado->fetch_assoc();
+    }
+
+    function findEstado($dato, $tabla){       
+        $respuesta = array();
+        $bd = conexion();      
+        // Prepara SELECT
+        $sql = "SELECT * FROM " . $tabla . " WHERE id_estado = " . $dato;
+        $resultado = $bd -> query($sql);         
+        if($bd->connect_errno) { 
+            return $bd->error;  
+        }   
+        return $resultado->fetch_assoc();
     }
 
 ?>
