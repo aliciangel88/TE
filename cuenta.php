@@ -99,6 +99,7 @@
                     <th>Imagen</th>
                     <th>Tipo Reclamo</th>
                     <th>Descripcion</th>
+                    <th>Estado</th>
                     <th>Fecha Creado</th>
                 </tr>
             </thead>
@@ -107,12 +108,15 @@
 
 $url = 'images/reclamos/';
 
-$reclamos = findAll('reclamo');
+$reclamos = findAllActivos('reclamo');
 
 foreach ($reclamos as $value) {
   
-     
-
+if($value['img'] == null){
+  $value['img'] = "default.png";
+}  
+$tipoReclamo = findTipoReclamo($value['id_tiporeclamo'],'tipo_reclamo');
+$estado = findEstado($value['id_estado'],'estado');
 
 ?>           
 
@@ -126,10 +130,11 @@ foreach ($reclamos as $value) {
           </td>
           <td><?php 
 
-          echo "<b class='text-success'>".$value['tiporeclamo']."</b>";?>
+          echo "<b class='text-success'>".$tipoReclamo['nombre']."</b>";?>
             
           </td>
           <td><?php echo $value['descripcion'];?></td>
+          <td><?php echo $estado['nombre'];?></td>
           <td><?php 
 
 
@@ -182,7 +187,7 @@ foreach ($reclamos as $value) {
           <tr>
               <td width="180px">
                 <center>
-                  <a href="<?php echo "subasta.php?id=$sub"; ?>">
+                  <a href="<?php echo "reclamo.php?id=$sub"; ?>">
                     <img src="<?php echo "images/productos/$imagen_p";?>" style="height: 80px;">
                   </a>
                 </center>
