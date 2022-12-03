@@ -17,12 +17,16 @@ $foto = $_FILES["foto"]["name"];
 $ruta = $_FILES["foto"]["tmp_name"];
 
  $dest = "images/reclamos/";
- copy($ruta,$dest.''.$foto);
+ if($ruta != null){
+    copy($ruta,$dest.''.$foto);
+ }
 
 $datos = array(
-'tiporeclamo'=>$_REQUEST['categoria'],
+'id_tiporeclamo'=>$_REQUEST['categoria'],
 'id_estado'=>0,
 'descripcion'=>$_REQUEST['descripcion'],
+'id_area'=>1,
+'id_estado'=>1,
 'img'=>$foto
 );
 
@@ -176,7 +180,7 @@ $categoria = findAll('tipo_reclamo');
 
 
 foreach ($categoria as $opcion) {
-echo "<option value='".$opcion["nombre"]."'>".$opcion["nombre"]."</option>";
+echo "<option value='".$opcion["id_tiporeclamo"]."'>".$opcion["nombre"]."</option>";
 }
 
 ?>
@@ -188,6 +192,9 @@ echo "<option value='".$opcion["nombre"]."'>".$opcion["nombre"]."</option>";
 
     <p class="text-info">Si no esta la categoria que busca puede agregar una desde el panel lateral.</p>
     </div>
+
+
+
 
     <div class="form-group">
     <label>Foto</label>
